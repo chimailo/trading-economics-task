@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import {ThemeProvider} from '@/components/theme-provider'
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
+import Header from "@/components/header";
+import { ThemeProvider } from "@/components/theme-provider";
+import { cn } from "@/lib/utils";
+import CountryProvider from "@/hooks/useCountry";
+import Providers from "./provider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,8 +23,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class">{children}</ThemeProvider>
+      <body
+        className={cn(
+          inter.className,
+          "min-h-screen px-4 lg:px-0 flex flex-col gap-8 md:gap-12"
+        )}
+      >
+        <Providers>
+          <ThemeProvider attribute="class">
+            <CountryProvider value="mexico">
+              <Header />
+              <main className="flex-1 max-w-5xl mx-auto space-y-8 w-full">
+                {children}
+              </main>
+            </CountryProvider>
+          </ThemeProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </Providers>
       </body>
     </html>
   );
