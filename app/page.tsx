@@ -1,9 +1,17 @@
-import Header from "@/components/header";
+import EarningsRevenue from "@/components/earnings";
+import Markets from "@/components/markets";
+import SectionTitle from "@/components/section-title";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <main className="flex min-h-screen max-w-5xl mx-auto">
-      <Header></Header>
-    </main>
+    <>
+      <section className="space-y-2">
+        <SectionTitle />
+        <Markets />
+      </section>
+      <section className="">
+        <EarningsRevenue />
+      </section>
+    </>
   );
 }
