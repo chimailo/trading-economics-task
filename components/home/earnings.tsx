@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { RefreshCcw } from "lucide-react";
 
 import {
   Card,
@@ -18,7 +19,9 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
+import Spinner from "@/components/ui/spinner";
 import { useCountry } from "@/hooks/useCountry";
+import { fetchEarningsRevenue } from "@/lib/requests";
 
 const chartConfig = {
   previous: {
@@ -35,32 +38,59 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const apiBaseUrl = process.env.baseUrl;
-const apiKey = process.env.apiKey;
-
-const query = { c: apiKey as string, d1: "2024-01-04", d2: "2024-31-06" };
-const queryString = new URLSearchParams(query).toString();
-
-async function fetchEarningsRevenue(country: string) {
-  const earnings = await fetch(
-    `${apiBaseUrl}/earnings-revenues/country/${country}?${queryString}`
+function Header() {
+  return (
+    <CardHeader className="flex-row">
+      <div className="flex-1">
+        <CardTitle className="text-lg">Earnings Revenue</CardTitle>
+        <CardDescription>Fiscal Year Q1 2024</CardDescription>
+      </div>
+      <Button asChild variant="outline" className="shadow-none">
+        <Link href={`/`}>View All</Link>
+      </Button>
+    </CardHeader>
   );
-  return earnings.json();
 }
 
 export default function EarningsRevenue() {
   const { country } = useCountry();
-  const { data, error, status } = useQuery<Record<string, string>[]>({
+  const { data, error, status, refetch } = useQuery<Record<string, string>[]>({
     queryKey: [`/earnings-revenues/${country}`],
     queryFn: () => fetchEarningsRevenue(country),
   });
 
   if (status === "pending") {
-    return <span>Loading...</span>;
+    return (
+      <Card className="shadow-none">
+        <Header />
+        <CardContent>
+          <div className="w-full h-56 grid place-items-center sm:h-[23rem] md:h-[31rem]">
+            <Spinner twSize="w-6 h-6" />
+          </div>
+        </CardContent>
+      </Card>
+    );
   }
 
   if (status === "error") {
-    return <span>Error: {error.message}</span>;
+    return (
+      <Card className="shadow-none">
+        <Header />
+        <CardContent>
+          <div className="w-full h-56 grid place-items-center sm:h-[23rem] md:h-[31rem]">
+            <div className="flex flex-col items-center justify-center max-w-[40rem]">
+              <p className="text-center font-medium mb-3">
+                {error.message || "Failed to fetch"}
+              </p>
+              <Button onClick={() => refetch()}>
+                Retry
+                <RefreshCcw width={16} className="ml-1" />
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
   }
 
   const formatChartData = () => {
@@ -98,16 +128,8 @@ export default function EarningsRevenue() {
   };
 
   return (
-    <Card>
-      <CardHeader className="flex-row">
-        <div className="flex-1">
-          <CardTitle className="text-lg">Earnings Revenue</CardTitle>
-          <CardDescription>Fiscal Year Q1 2024</CardDescription>
-        </div>
-        <Button asChild variant="outline" className="shadow-none">
-          <Link href={`/`}>View All</Link>
-        </Button>
-      </CardHeader>
+    <Card className="shadow-none">
+      <Header />
       <CardContent>
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={formatChartData()}>

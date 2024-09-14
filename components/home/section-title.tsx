@@ -10,13 +10,17 @@ export default function SectionTitle() {
   return (
     <div className="flex items-center gap-4 mb-2">
       <h1 className="text-lg font-medium flex-1">
-        Markets in{" "}
+        Featured Markets in{" "}
         <span className="text-primary capitalize">
           {country.replace("-", " ")}
         </span>
       </h1>
-      <Button asChild variant="outline" className="">
-        <Link href={`/`}>View All</Link>
+      <Button
+        asChild
+        variant="outline"
+        className="border border-stone-400 dark:border-stone-700 shadow-none"
+      >
+        <Link href={`/`}>View All Markets</Link>
       </Button>
     </div>
   );
