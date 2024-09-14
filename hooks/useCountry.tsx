@@ -35,7 +35,6 @@ export default function CountryProvider({
 
   const handleCountry = (country: Country) => {
     setCountry(country);
-    router.push(`${pathname}?country=${country}`);
   };
 
   return (
