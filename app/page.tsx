@@ -1,17 +1,15 @@
-import EarningsRevenue from "@/components/earnings";
-import Markets from "@/components/markets";
-import SectionTitle from "@/components/section-title";
+import EarningsRevenue from "@/components/home/earnings";
+import FeaturedMarkets from "@/components/home/markets";
+import SectionTitle from "@/components/home/section-title";
 
 export default async function Home() {
   return (
     <>
       <section className="space-y-2">
         <SectionTitle />
-        <Markets />
+        <FeaturedMarkets />
       </section>
-      <section className="">
-        <EarningsRevenue />
-      </section>
+      <EarningsRevenue />
     </>
   );
 }
