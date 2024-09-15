@@ -1,8 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is my implementation of the task to create a web application that displays data from the [`Trading Economics API`](http://https://api.tradingeconomics.com). The free tier of the api was used for this task, hence available country selection is limited to Mexico, New Zealand, Sweden and Thailand.
 
-## Getting Started
+## Installation
 
-First, run the development server:
+**📘** This is a javascript project that runs on node js, make sure you have node js > 18 and npm > 10
+
+Using the following steps, the project can be set up locally:
+
+1. Clone this repo from the main branch
+
+2. Install the necessary dependencies with any of the follwing commands
+
+```bash
+npm run install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+3. Get a token by going to [`Trading Economics API`](http://https://api.tradingeconomics.com) and following the instructions there to generate your token
+
+4. Create a `.env` file in the root of your project and add the following values:
+
+```
+TE_TASK_API_BASE_URL=https://api.tradingeconomics.com
+TE_BASE_URL=https://tradingeconomics.com
+TE_TASK_API_KEY=YOUR_TRADING_ECONOMICS_TOKEN
+```
+
+4. Run the command below to start the dev server
 
 ```bash
 npm run dev
@@ -13,24 +41,3 @@ pnpm dev
 # or
 bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
