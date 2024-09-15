@@ -1,8 +1,10 @@
-This is my implementation of the task to create a web application that displays data from the [`Trading Economics API`](http://https://api.tradingeconomics.com). The free tier of the api was used for this task, hence available country selection is limited to Mexico, New Zealand, Sweden and Thailand.
+This is my implementation of the task to create a web application that displays data from the [`Trading Economics API`](https://api.tradingeconomics.com). The free tier of the api was used for this task, hence available country selection is limited to Mexico, New Zealand, Sweden and Thailand.
+
+To view the project live, go to [`Trading Economics Task`](https://tradingeconomics-task.vercel.app)
 
 ## Installation
 
-**📘** This is a javascript project that runs on node js, make sure you have node js > 18 and npm > 10
+> **📘** This is a javascript project that runs on node js, make sure you have node >= v18 and npm >= v10
 
 Using the following steps, the project can be set up locally:
 
@@ -20,7 +22,7 @@ pnpm install
 bun install
 ```
 
-3. Get a token by going to [`Trading Economics API`](http://https://api.tradingeconomics.com) and following the instructions there to generate your token
+3. Get a token by going to [`Trading Economics API`](https://api.tradingeconomics.com) and following the instructions there to generate your token
 
 4. Create a `.env` file in the root of your project and add the following values:
 
@@ -41,3 +43,5 @@ pnpm dev
 # or
 bun dev
 ```
+
+5. Go to your browser and start interacting with the app.
