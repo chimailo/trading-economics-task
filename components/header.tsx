@@ -1,30 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { type Country, useCountry } from "@/hooks/useCountry";
-import { ChevronDown } from "lucide-react";
-
-const countries = {
-  mexico: "🇲🇽 Mexico",
-  "new-zealand": "🇳🇿 New Zealand",
-  sweden: "🇸🇪 Sweden",
-  thailand: "🇹🇭 Thailand",
-};
+import SelectCountry from "@/components/select-country";
 
 export default function Header() {
   const { resolvedTheme: theme, setTheme } = useTheme();
-  const { country, handleCountry } = useCountry();
+  const pathname = usePathname();
 
   const toggleTheme = () =>
     theme === "light" ? setTheme("dark") : setTheme("light");
@@ -35,27 +21,7 @@ export default function Header() {
         <Link href="/">Trading Economics Task</Link>
       </div>
       <div className="flex items-center gap-4">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="border-primary text-primary hover:text-primary hover:border-primary border gap-2"
-            >
-              {countries[country]}
-              <ChevronDown className="w-4 h-4"></ChevronDown>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {Object.entries(countries).map(([key, value]) => (
-              <DropdownMenuItem
-                key={key}
-                onSelect={() => handleCountry(key as Country)}
-              >
-                {value}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <SelectCountry />
 
         <div className="flex items-center gap-2 flex-shrink-0">
           <Switch id="toggleTheme" onClick={toggleTheme} />

@@ -1,4 +1,4 @@
-import EarningsRevenue from "@/components/home/earnings";
+import SelectionEarningsRevenue from "@/components/home/earnings";
 import FeaturedMarkets from "@/components/home/markets";
 import SectionTitle from "@/components/home/section-title";
 
@@ -9,7 +9,7 @@ export default async function Home() {
         <SectionTitle />
         <FeaturedMarkets />
       </section>
-      <EarningsRevenue />
+      <SelectionEarningsRevenue />
     </>
   );
 }

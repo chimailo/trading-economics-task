@@ -20,7 +20,7 @@ export default function SectionTitle() {
         variant="outline"
         className="border border-stone-400 dark:border-stone-700 shadow-none"
       >
-        <Link href={`/`}>View All Markets</Link>
+        <Link href={`/markets?country=${country}`}>View All Markets</Link>
       </Button>
     </div>
   );

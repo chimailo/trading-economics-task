@@ -133,10 +133,10 @@ function PercentChange({ diff }: { diff: string }) {
   );
 }
 
-type MarketTypes = "bonds" | "currency" | "index" | "stocks";
-type MarketState = "OPEN" | "CLOSED";
+export type MarketTypes = "bonds" | "currency" | "index" | "stocks";
+export type MarketState = "OPEN" | "CLOSED";
 
-function MarketType({ type }: { type: MarketTypes }) {
+export function MarketType({ type }: { type: MarketTypes }) {
   return (
     <span
       className={cn(
@@ -155,7 +155,7 @@ function MarketType({ type }: { type: MarketTypes }) {
   );
 }
 
-function MarketState({ state }: { state: MarketState }) {
+export function MarketState({ state }: { state: MarketState }) {
   return (
     <span
       className={cn(

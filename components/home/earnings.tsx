@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
-import { useCountry } from "@/hooks/useCountry";
+import { Country, useCountry } from "@/hooks/useCountry";
 import { fetchEarningsRevenue } from "@/lib/requests";
 
 const chartConfig = {
@@ -38,7 +38,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-function Header() {
+function Header({ country }: { country: Country }) {
   return (
     <CardHeader className="flex-row">
       <div className="flex-1">
@@ -46,13 +46,13 @@ function Header() {
         <CardDescription>Fiscal Year Q1 2024</CardDescription>
       </div>
       <Button asChild variant="outline" className="shadow-none">
-        <Link href={`/`}>View All</Link>
+        <Link href={`/earnings-revenue?country=${country}`}>View All</Link>
       </Button>
     </CardHeader>
   );
 }
 
-export default function EarningsRevenue() {
+export default function SelectionEarningsRevenue() {
   const { country } = useCountry();
   const { data, error, status, refetch } = useQuery<Record<string, string>[]>({
     queryKey: [`/earnings-revenues/${country}`],
@@ -62,7 +62,7 @@ export default function EarningsRevenue() {
   if (status === "pending") {
     return (
       <Card className="shadow-none">
-        <Header />
+        <Header country={country} />
         <CardContent>
           <div className="w-full h-56 grid place-items-center sm:h-[23rem] md:h-[31rem]">
             <Spinner twSize="w-6 h-6" />
@@ -75,7 +75,7 @@ export default function EarningsRevenue() {
   if (status === "error") {
     return (
       <Card className="shadow-none">
-        <Header />
+        <Header country={country} />
         <CardContent>
           <div className="w-full h-56 grid place-items-center sm:h-[23rem] md:h-[31rem]">
             <div className="flex flex-col items-center justify-center max-w-[40rem]">
@@ -110,7 +110,6 @@ export default function EarningsRevenue() {
         actual: datum["RevenueValue"],
         forecast: datum["RevenueForecastValue"],
       }));
-    console.log(chartData);
     return chartData;
   };
 
@@ -129,7 +128,7 @@ export default function EarningsRevenue() {
 
   return (
     <Card className="shadow-none">
-      <Header />
+      <Header country={country} />
       <CardContent>
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={formatChartData()}>
