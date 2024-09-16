@@ -1,6 +1,5 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { RefreshCcw } from "lucide-react";
 
@@ -35,8 +34,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function CountryMarkets() {
-  const searchParams = useSearchParams();
-  const country = searchParams.get("country") as Country | null;
+  const { country } = useCountry();
 
   const { data, error, status, refetch } = useQuery<Record<string, string>[]>({
     queryKey: [`/earnings-revenues/${country}`],

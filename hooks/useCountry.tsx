@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export type Country = "mexico" | "new-zealand" | "sweden" | "thailand";
 type CountryContextProps = {
@@ -27,11 +27,7 @@ export default function CountryProvider({
 }: CountryProviderProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const queryString = searchParams.get("country") as Country | null;
-  const [country, setCountry] = useState<Country>(
-    queryString || value || "mexico"
-  );
+  const [country, setCountry] = useState<Country>(value || "mexico");
 
   const handleCountry = (country: Country) => {
     setCountry(country);
